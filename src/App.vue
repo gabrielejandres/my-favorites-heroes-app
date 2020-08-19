@@ -28,6 +28,7 @@ $dark-gray: #111111;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Marvel', sans-serif;
 }
 
 html, body {
@@ -36,8 +37,7 @@ html, body {
 
 #app {
   height: 100%;
-  background-color: $dark-gray;
-  font-family: "Segoe UI", "Arial", sans-serif;
+  background-color: #282828;
 }
 
 </style>
