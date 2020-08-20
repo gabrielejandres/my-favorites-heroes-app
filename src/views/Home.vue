@@ -14,16 +14,37 @@
         <button type="submit"> Search </button>
       </form>
     </div>
+
+    <div class="characters">
+      <CardCharacters :character="characters[0]" />
+    </div>
   </div>
 </template>
 
 <script>
-  //import CardCharacters from '@/components/CardCharacters.vue'
+  import CardCharacters from '@/components/CardCharacters.vue'
 
   export default {
     data() {
       return {
-        search: ''
+        search: '',
+        characters: [
+          {
+            id: 1,
+            name: 'Iron Man',
+            path: '../assets/ironman.jpg',
+          },
+          {
+            id: 2,
+            name: 'Iron Man 2',
+            path: '../assets/ironman.jpg',
+          },
+          {
+            id: 3,
+            name: 'Iron Man',
+            path: '../assets/ironman.jpg',
+          }
+        ]
       }
     },
     methods: {
@@ -31,11 +52,12 @@
         if (this.search.trim() === '') {
           return 'Type a valid name';
         } 
-        console.log(this.search);
+        // console.log(this.search);
       }
+
     },
     components: {
-      // CardCharacters
+      CardCharacters
     }
   }
 </script>
@@ -54,6 +76,7 @@
     height: 100%;
     position: relative;
 
+    /* HEADER */
     .header {
       background-image: linear-gradient(48.366deg, rgb(129, 75, 108), rgb(165, 37, 68));
       display: flex;
@@ -138,7 +161,14 @@
         }
       }
   }
- }
 
+  /* CHARACTERS DIV */
+
+  .characters {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+ }
 
 </style>

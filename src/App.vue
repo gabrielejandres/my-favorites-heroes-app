@@ -33,6 +33,7 @@ $dark-gray: #111111;
 
 html, body {
   height: 100%;
+  background-color: #282828;
 }
 
 #app {
