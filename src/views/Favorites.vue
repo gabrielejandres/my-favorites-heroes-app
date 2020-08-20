@@ -4,7 +4,7 @@
     <font-awesome-icon icon="heart" />
     </h1>
     <div class="favorites">
-      <CardCharacters :character="characters[0]" class="card"/>
+      <CardCharacters v-for="character in characters" v-bind:key="character.id" :character="character" class="card"/>
     </div>
   </fragment>
 </template>
@@ -20,7 +20,7 @@
           {
             id: 1,
             name: 'Iron Man',
-            path: '../assets/ironman.jpg',
+            path: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSaNGlEMBmyMD6uXamHaxzdyoPcwTPybEkobg&usqp=CAU'
           }
         ]
       }
@@ -40,12 +40,12 @@
   $dark-blue: #002424;
   $gray: #d9d8d6;
   $yellow: #ee933a;
-  $dark-gray: #111111;
 
   .favorites {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 15vh;
   }
 
   h1 {

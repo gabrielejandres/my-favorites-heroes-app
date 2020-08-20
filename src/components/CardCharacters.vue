@@ -1,15 +1,15 @@
 <template>
   <fragment>
-    <div class="card" v-on:click="setHover()">
-      <img src="../assets/ironman.jpg"/>
-    </div>
-    <div class="card-hover" id="hover" v-on:click="removeFavorite(character.id)" v-if="this.favorites.includes(character.id)">
-      <p> Click to unfavorite {{ character.name }}</p>
-      <font-awesome-icon icon="heart" />
-    </div>
-    <div class="card-hover" id="hover" v-on:click="setFavorite(character.id)" v-else>
-      <p> Click to favorite {{ character.name }}</p>
-      <font-awesome-icon :icon="['far', 'heart']" />
+    <div class="card" v-on:click="showOption()">
+      <img :src="character.path"/>
+      <div class="unfavorite" v-if="showReaction && favorites.includes(character.id)" v-on:click="removeFavorite(character.id)">
+        <p> Click to unfavorite {{ character.name }}</p>
+        <font-awesome-icon icon="heart" />
+      </div>
+      <div class="favorite" v-if="showReaction && !favorites.includes(character.id)" v-on:click="setFavorite(character.id)">
+        <p> Click to favorite {{ character.name }}</p>
+        <font-awesome-icon :icon="['far', 'heart']" />
+      </div>
     </div>
   </fragment>
 </template>
@@ -23,13 +23,13 @@ export default {
   },
   data() {
     return {
+      showReaction: false,
       favorites: []
     }
   },
   methods: {
-    setHover() {
-      document.querySelector('#hover').classList.remove('card-hover');
-      document.querySelector('#hover').classList.add('card-click');
+    showOption() {
+      this.showReaction = true;
     },
 
     setFavorite(id) {
@@ -58,7 +58,6 @@ export default {
 
   /* CARD */
   .card {
-    position: absolute;
     margin-top: 8%;
     background-color: #fff;
     width: 80vw;
@@ -68,42 +67,32 @@ export default {
       object-fit: cover;
       width: 100%;
       height: 100%;
+      border-radius: 10px;
+      box-shadow: 3px 3px 5px 6px rgba(0, 0, 0, 0.2);
     }
-  }
 
-  .card-hover {
-    position: absolute;
-    margin-top: 8%;
-    background-color: #000;
-    color: #fff;
-    width: 80vw;
-    height: 50vh;
-    opacity: 0;
-    visibility: hidden;
-    -webkit-transition: opacity 0.5s linear;
-    -moz-transition: opacity 0.5s linear;
-    -o-transition: opacity 0.5s linear;
-    transition: opacity 0.5s linear;
-  }
+    .unfavorite, .favorite {
+      background-color: #000;
+      color: #fff;
+      position: absolute;
+      margin-top: -50.5vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 80vw;
+      height: 50vh;
+      border-radius: 10px;
+      opacity: 0.7;
+      -webkit-transition: opacity 0.5s linear;
+      -moz-transition: opacity 0.5s linear;
+      -o-transition: opacity 0.5s linear;
+      transition: opacity 0.5s linear;
 
-  .card-click {
-    visibility: visible;
-    opacity: 0.7;
-    position: absolute;
-    margin-top: 8%;
-    background-color: #000;
-    color: #fff;
-    width: 80vw;
-    height: 50vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3em;
-
-    svg {
-      font-size: 6em;
-      margin-top: 5%;
+      svg {
+        font-size: 6em;
+        margin-top: 5%;
+      }
     }
   }
 

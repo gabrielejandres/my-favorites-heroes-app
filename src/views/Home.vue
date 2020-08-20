@@ -16,7 +16,7 @@
     </div>
 
     <div class="characters">
-      <CardCharacters :character="characters[0]" />
+      <CardCharacters v-for="character in characters" v-bind:key="character.id" :character="character" />
     </div>
   </div>
 </template>
@@ -32,17 +32,17 @@
           {
             id: 1,
             name: 'Iron Man',
-            path: '../assets/ironman.jpg',
+            path: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSaNGlEMBmyMD6uXamHaxzdyoPcwTPybEkobg&usqp=CAU'
           },
           {
             id: 2,
-            name: 'Iron Man 2',
-            path: '../assets/ironman.jpg',
+            name: 'Captain Marvel',
+            path: 'https://vignette.wikia.nocookie.net/marvelcinematicuniverse/images/f/fe/CapMarvel-EndgameProfile.jpeg/revision/latest/top-crop/width/360/height/360?cb=20190423175247',
           },
           {
             id: 3,
-            name: 'Iron Man',
-            path: '../assets/ironman.jpg',
+            name: 'Captain America',
+            path: 'https://vignette.wikia.nocookie.net/stan-lee-cameo/images/b/be/Steve_Rogers_Endgame_Character_Poster.jpg/revision/latest/top-crop/width/360/height/450?cb=20190527050443',
           }
         ]
       }
@@ -168,6 +168,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 10%;
+    margin-bottom: 15vh;
   }
  }
 

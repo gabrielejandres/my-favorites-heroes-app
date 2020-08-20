@@ -1,6 +1,6 @@
 <template>
   <div id="navbar">
-    <router-link to="/" :class="{active: menuActive === 'home'}" v-on:click="setActive('home')">
+    <router-link to="/" :class="{active: menuActive === 'home'}">
       <span class="icon" v-on:click="setActive('home')">
         <font-awesome-icon icon="home" />
         <span class="title">Home</span>
@@ -32,13 +32,13 @@
 </script>
 
 <style scoped lang="scss">
+
   /* Color palette */
   $red: #a52544;
   $blue: #005658;
   $dark-blue: #002424;
   $gray: #d9d8d6;
   $yellow: #ee933a;
-  $dark-gray: #111111;
 
   #navbar {
     position: fixed;
