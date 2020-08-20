@@ -16,29 +16,30 @@ export default {
 </script>
 
 <style lang="scss">
-/* Color palette */
-$red: #a52544;
-$blue: #005658;
-$dark-blue: #002424;
-$gray: #d9d8d6;
-$yellow: #ee933a;
-$dark-gray: #111111;
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Marvel', sans-serif;
-}
+  /* Color palette */
+  $red: #a52544;
+  $blue: #005658;
+  $dark-blue: #002424;
+  $gray: #d9d8d6;
+  $yellow: #ee933a;
+  $dark-gray: #111111;
 
-html, body {
-  height: 100%;
-  background-color: #282828;
-}
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Marvel', sans-serif;
+  }
 
-#app {
-  height: 100%;
-  background-color: #282828;
-}
+  html, body {
+    height: 100%;
+    background-color: #282828;
+  }
+
+  #app {
+    height: 100%;
+    background-color: #282828;
+  }
 
 </style>

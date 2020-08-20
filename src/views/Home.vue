@@ -2,21 +2,34 @@
   <div id="home">
     <div class="header">
       <h1>Hello, </h1>
-      <p>Which Marvel character would you like to know better today?</p>
+      <p> Select some serie and find it wonderful characters to choose your favorites! </p>
     </div>
 
     <div class="form">
       <form v-on:submit.prevent="submitForm">
         <div class="search">
-          <font-awesome-icon icon="search" />
-          <input placeholder="Type a character name" type="text" name="search" v-model="search">
+          <select v-model="selectedSerie">
+            <option value="" selected disabled>
+              Pick some serie
+            </option>
+            <option v-for="serie in series" v-bind:value="serie.id" v-bind:key="serie.id">
+              {{ serie.title }}
+            </option>
+          </select>
         </div>
         <button type="submit"> Search </button>
       </form>
     </div>
 
-    <div class="characters">
+    <div class="characters" v-if="characters.length">
       <CardCharacters v-for="character in characters" v-bind:key="character.id" :character="character" />
+    </div>
+    <div class="message" v-if="noResults">
+      <h2> No characters registered! </h2>
+      <p> Try again with another series! </p>
+    </div>
+    <div class="loading" v-if="loading">
+      <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
     </div>
   </div>
 </template>
@@ -24,37 +37,46 @@
 <script>
   import CardCharacters from '@/components/CardCharacters.vue'
 
+  // request to api
+  import axios from 'axios'
+  import { apikey, hash } from '../apiCredentials.js'
+
   export default {
+    mounted: function() {
+      this.getSeries();
+    },
     data() {
       return {
-        search: '',
-        characters: [
-          {
-            id: 1,
-            name: 'Iron Man',
-            path: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSaNGlEMBmyMD6uXamHaxzdyoPcwTPybEkobg&usqp=CAU'
-          },
-          {
-            id: 2,
-            name: 'Captain Marvel',
-            path: 'https://vignette.wikia.nocookie.net/marvelcinematicuniverse/images/f/fe/CapMarvel-EndgameProfile.jpeg/revision/latest/top-crop/width/360/height/360?cb=20190423175247',
-          },
-          {
-            id: 3,
-            name: 'Captain America',
-            path: 'https://vignette.wikia.nocookie.net/stan-lee-cameo/images/b/be/Steve_Rogers_Endgame_Character_Poster.jpg/revision/latest/top-crop/width/360/height/450?cb=20190527050443',
-          }
-        ]
+        characters: [],
+        series: [],
+        selectedSerie: '',
+        size: '/standard_large.jpg',
+        noResults: false,
+        loading: false
       }
     },
     methods: {
       submitForm() {
-        if (this.search.trim() === '') {
-          return 'Type a valid name';
-        } 
-        // console.log(this.search);
-      }
+        this.loading = true;
+        axios
+          .get(`http://gateway.marvel.com/v1/public/series/${this.selectedSerie}/characters?ts=1&apikey=${apikey}&hash=${hash}`)
+          .then(response => {
+            this.characters = response.data.data.results;
 
+            this.characters.map((character) => character.thumbnail.path += this.size);
+
+            this.noResults = this.characters.length === 0 ? true: false;
+
+            console.log(response.data.data.results);
+          });
+      },
+      getSeries() {
+        axios
+          .get(`http://gateway.marvel.com/v1/public/series?ts=1&apikey=${apikey}&hash=${hash}`)
+          .then(response => {
+            this.series = response.data.data.results;
+        });
+      }
     },
     components: {
       CardCharacters
@@ -104,12 +126,12 @@
 
       h1 {
         font-weight: bold;
-        margin: 10% 2% 2% 2%;
+        margin: 15% 2% 2% 2%;
         font-size: 3em;
       }
       p {
-        margin-bottom: 32px;
-        font-size: 1.3em;
+        margin-top: 3%;
+        font-size: 1.1em;
       }
 
     }
@@ -122,7 +144,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: flex-end;
-        height: 40vh;
+        height: 45vh;
 
         button {
           background-color: $yellow;
@@ -137,18 +159,18 @@
       }
       .search {
         background-color: #fff;
-        display: grid;
-        width: 80vw;
+        width: 85vw;
         height: 7vh;
+        display: flex;
         align-items: center;
-        grid-template-columns: 10% 90%;
+        justify-content: center;
         border-radius: 40px;
         text-decoration: none;
-        color: $red;
 
-        input {
+        select {
           border: none;
-          width: 90%;
+          width: 75vw;
+          border-radius: 40px;
           height: 100%;
           color: $dark-gray;
           font-size: 1.3em;
@@ -168,9 +190,91 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 10%;
+    margin-top: 1vh;
     margin-bottom: 15vh;
   }
+
+  /* MESSAGE NO RESULTS */
+  .message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10%;
+    color: #fff;
+  }
+
+  /* LOADING */
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3%;
+  }
+
+  .lds-ellipsis {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+
+  .lds-ellipsis div {
+    position: absolute;
+    top: 33px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #fff;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  }
+
+  .lds-ellipsis div:nth-child(1) {
+    left: 8px;
+    animation: lds-ellipsis1 0.6s infinite;
+  }
+
+  .lds-ellipsis div:nth-child(2) {
+    left: 8px;
+    animation: lds-ellipsis2 0.6s infinite;
+  }
+
+  .lds-ellipsis div:nth-child(3) {
+    left: 32px;
+    animation: lds-ellipsis2 0.6s infinite;
+  }
+
+  .lds-ellipsis div:nth-child(4) {
+    left: 56px;
+    animation: lds-ellipsis3 0.6s infinite;
+  }
+
+  @keyframes lds-ellipsis1 {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes lds-ellipsis3 {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+
+  @keyframes lds-ellipsis2 {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(24px, 0);
+    }
+  }
+
  }
 
 </style>

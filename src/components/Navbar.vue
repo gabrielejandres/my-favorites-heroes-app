@@ -23,9 +23,7 @@
     }),
     methods: {
       setActive(option) {
-        // console.log(option);
         this.menuActive = option;
-        console.log(this.menuActive);
       }
     }
   };

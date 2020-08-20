@@ -1,7 +1,7 @@
 <template>
   <fragment>
     <div class="card" v-on:click="showOption()">
-      <img :src="character.path"/>
+      <img :src="character.thumbnail.path"/>
       <div class="unfavorite" v-if="showReaction && favorites.includes(character.id)" v-on:click="removeFavorite(character.id)">
         <p> Click to unfavorite {{ character.name }}</p>
         <font-awesome-icon icon="heart" />
