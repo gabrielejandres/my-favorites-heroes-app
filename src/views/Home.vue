@@ -57,6 +57,9 @@
     },
     methods: {
       submitForm() {
+        if( this.selectedSerie === '') {
+          return;
+        }
         this.loading = true;
         axios
           .get(`http://gateway.marvel.com/v1/public/series/${this.selectedSerie}/characters?ts=1&apikey=${apikey}&hash=${hash}`)
@@ -68,7 +71,10 @@
             this.noResults = this.characters.length === 0 ? true: false;
 
             console.log(response.data.data.results);
+
+            this.loading = false;
           });
+          
       },
       getSeries() {
         axios

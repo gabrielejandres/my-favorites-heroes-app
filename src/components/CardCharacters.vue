@@ -17,14 +17,19 @@
 <script>
 
 export default {
-  name: 'CardCharacters',
+  mounted: function() {
+    // if don't have a favorites section in localStorage
+    if (JSON.parse(localStorage.getItem('favorites')) === null) {
+      localStorage.setItem('favorites', JSON.stringify([]));
+    }
+  },
   props: {
     character: Object
   },
   data() {
     return {
       showReaction: false,
-      favorites: []
+      favorites: JSON.parse(localStorage.getItem('favorites'))
     }
   },
   methods: {
@@ -33,13 +38,17 @@ export default {
     },
 
     setFavorite(id) {
+      this.favorites = JSON.parse(localStorage.getItem('favorites'));
       this.favorites.push(id);
+      localStorage.setItem('favorites', JSON.stringify(this.favorites));
       console.table(this.favorites);
     },
 
     removeFavorite(id) {
+      this.favorites = JSON.parse(localStorage.getItem('favorites'));
       const index = this.favorites.indexOf(id);
       this.favorites.splice(index, 1);
+      localStorage.setItem('favorites', JSON.stringify(this.favorites));
       console.table(this.favorites);
     }
   }
