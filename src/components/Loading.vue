@@ -8,11 +8,9 @@
   export default {
     name: 'Loading'
   }
-
 </script>
 
 <style scoped lang="scss">
-
   .loading {
     display: flex;
     align-items: center;
@@ -83,5 +81,4 @@
       transform: translate(24px, 0);
     }
   }
-
 </style>

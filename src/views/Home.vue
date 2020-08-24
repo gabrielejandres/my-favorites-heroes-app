@@ -35,10 +35,7 @@
 <script>
   import CardCharacters from '@/components/CardCharacters.vue'
   import Loading from '@/components/Loading.vue'
-
-  // request to api
-  import axios from 'axios'
-  import { apikey, hash } from '../apiCredentials.js'
+  import api, { API_DEFAULT_PARAMS } from '../services/api.js'
 
   export default {
     mounted: function() {
@@ -49,7 +46,6 @@
         characters: [],
         series: [],
         selectedSerie: '',
-        size: '/standard_large.jpg',
         noResults: false,
         loading: false
       }
@@ -60,24 +56,26 @@
           return;
         }
         this.loading = true;
-        axios
-          .get(`http://gateway.marvel.com/v1/public/series/${this.selectedSerie}/characters?ts=1&apikey=${apikey}&hash=${hash}`)
-          .then(response => {
+        api.get(`/series/${this.selectedSerie}/characters`, {
+                  params: {
+                    ...API_DEFAULT_PARAMS,
+                  }})
+            .then(response => {
+
             this.characters = response.data.data.results;
 
-            this.characters.map((character) => character.thumbnail.path += this.size);
+            this.characters.map((character) => character.thumbnail.path += '/standard_large.jpg');
 
             this.noResults = this.characters.length === 0 ? true: false;
 
-            console.log(response.data.data.results);
-
             this.loading = false;
-          });
-          
+          });  
       },
       getSeries() {
-        axios
-          .get(`http://gateway.marvel.com/v1/public/series?ts=1&apikey=${apikey}&hash=${hash}`)
+        api.get('/series', {
+                  params: {
+                    ...API_DEFAULT_PARAMS,
+                  }})
           .then(response => {
             this.series = response.data.data.results;
         });
@@ -206,7 +204,5 @@
     margin-top: 10%;
     color: #fff;
   }
-
  }
-
 </style>

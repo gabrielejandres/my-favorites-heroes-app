@@ -17,10 +17,7 @@
 <script>
   import CardCharacters from '@/components/CardCharacters.vue'
   import Loading from '@/components/Loading.vue'
-
-  // request to api
-  import axios from 'axios'
-  import { apikey, hash } from '../apiCredentials.js'
+  import api, { API_DEFAULT_PARAMS } from '../services/api.js'
 
   export default {
     mounted() {
@@ -30,10 +27,12 @@
         this.loading = true;
         JSON.parse(localStorage.getItem('favorites')).map(
           (favorite) => {
-            axios
-              .get(`http://gateway.marvel.com/v1/public/characters/${favorite}?ts=1&apikey=${apikey}&hash=${hash}`)
+            api.get(`/characters/${favorite}`, {
+                    params: {
+                      ...API_DEFAULT_PARAMS,
+                    }})
               .then(response => {
-                response.data.data.results[0].thumbnail.path += this.size;
+                response.data.data.results[0].thumbnail.path += '/standard_large.jpg';
                 this.characters.push(response.data.data.results[0]);
                 
                 // for the loading div disappear
@@ -49,7 +48,6 @@
       return {
         characters: [],
         loading: false,
-        size: '/standard_large.jpg',
         noResults: false
       }
     },
