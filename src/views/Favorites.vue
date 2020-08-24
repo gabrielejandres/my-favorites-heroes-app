@@ -8,16 +8,15 @@
     </div>
       <div class="message" v-if="noResults">
       <h2> There are no favorite characters yet! </h2>
-      <p> Click on a character in the list on the home page when you want to favorite him. </p>
+      <p> Click on a character in the list on the home page if you want to favorite him. </p>
     </div>
-    <div class="loading" v-if="loading">
-      <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-    </div>
+    <Loading v-if="loading"/>
   </fragment>
 </template>
 
 <script>
   import CardCharacters from '@/components/CardCharacters.vue'
+  import Loading from '@/components/Loading.vue'
 
   // request to api
   import axios from 'axios'
@@ -55,7 +54,8 @@
       }
     },
     components: {
-      CardCharacters
+      CardCharacters,
+      Loading
     }
   }
 
@@ -99,78 +99,6 @@
 
     p {
       margin-top: 3vh;
-    }
-  }
-
-    /* LOADING */
-  .loading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 3%;
-  }
-
-  .lds-ellipsis {
-    display: inline-block;
-    position: relative;
-    width: 80px;
-    height: 80px;
-  }
-
-  .lds-ellipsis div {
-    position: absolute;
-    top: 33px;
-    width: 13px;
-    height: 13px;
-    border-radius: 50%;
-    background: #fff;
-    animation-timing-function: cubic-bezier(0, 1, 1, 0);
-  }
-
-  .lds-ellipsis div:nth-child(1) {
-    left: 8px;
-    animation: lds-ellipsis1 0.6s infinite;
-  }
-
-  .lds-ellipsis div:nth-child(2) {
-    left: 8px;
-    animation: lds-ellipsis2 0.6s infinite;
-  }
-
-  .lds-ellipsis div:nth-child(3) {
-    left: 32px;
-    animation: lds-ellipsis2 0.6s infinite;
-  }
-
-  .lds-ellipsis div:nth-child(4) {
-    left: 56px;
-    animation: lds-ellipsis3 0.6s infinite;
-  }
-
-  @keyframes lds-ellipsis1 {
-    0% {
-      transform: scale(0);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-
-  @keyframes lds-ellipsis3 {
-    0% {
-      transform: scale(1);
-    }
-    100% {
-      transform: scale(0);
-    }
-  }
-
-  @keyframes lds-ellipsis2 {
-    0% {
-      transform: translate(0, 0);
-    }
-    100% {
-      transform: translate(24px, 0);
     }
   }
 
