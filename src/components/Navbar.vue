@@ -31,12 +31,7 @@
 
 <style scoped lang="scss">
 
-  /* Color palette */
   $red: #a52544;
-  $blue: #005658;
-  $dark-blue: #002424;
-  $gray: #d9d8d6;
-  $yellow: #ee933a;
 
   #navbar {
     position: fixed;

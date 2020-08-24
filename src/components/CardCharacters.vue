@@ -41,7 +41,6 @@ export default {
       this.favorites = JSON.parse(localStorage.getItem('favorites'));
       this.favorites.push(id);
       localStorage.setItem('favorites', JSON.stringify(this.favorites));
-      console.table(this.favorites);
     },
 
     removeFavorite(id) {
@@ -49,7 +48,6 @@ export default {
       const index = this.favorites.indexOf(id);
       this.favorites.splice(index, 1);
       localStorage.setItem('favorites', JSON.stringify(this.favorites));
-      console.table(this.favorites);
     }
   }
 }
@@ -57,15 +55,6 @@ export default {
 
 <style scoped lang="scss">
 
-  /* Color palette */
-  $red: #a52544;
-  $blue: #005658;
-  $dark-blue: #002424;
-  $gray: #d9d8d6;
-  $yellow: #ee933a;
-  $dark-gray: #111111;
-
-  /* CARD */
   .card {
     margin-top: 8%;
     background-color: #fff;
@@ -104,5 +93,4 @@ export default {
       }
     }
   }
-
 </style>

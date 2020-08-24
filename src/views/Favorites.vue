@@ -4,12 +4,9 @@
     <font-awesome-icon icon="heart" />
     </h1>
     <div class="favorites" v-if="characters.length">
-      <CardCharacters v-for="character in characters" v-bind:key="character.id" :character="character" class="card"/>
+      <CardCharacters v-for="character in characters" v-bind:key="character.id" :character="character"/>
     </div>
-      <div class="message" v-if="noResults">
-      <h2> There are no favorite characters yet! </h2>
-      <p> Click on a character in the list on the home page if you want to favorite him. </p>
-    </div>
+    <Message main='There are no favorite characters yet!' paragraph='Click on a character in the list on the home page if you want to favorite him.' v-if="noResults"/>
     <Loading v-if="loading"/>
   </fragment>
 </template>
@@ -17,6 +14,7 @@
 <script>
   import CardCharacters from '@/components/CardCharacters.vue'
   import Loading from '@/components/Loading.vue'
+  import Message from '@/components/Message.vue'
   import api, { API_DEFAULT_PARAMS } from '../services/api.js'
 
   export default {
@@ -53,7 +51,8 @@
     },
     components: {
       CardCharacters,
-      Loading
+      Loading,
+      Message
     }
   }
 
@@ -61,11 +60,6 @@
 
 <style scoped lang="scss">
 
-  /* Color palette */
-  $red: #a52544;
-  $blue: #005658;
-  $dark-blue: #002424;
-  $gray: #d9d8d6;
   $yellow: #ee933a;
 
   .favorites {
@@ -84,20 +78,6 @@
       svg {
         color: $yellow;
       }
-  }
-
-  .message {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 80vh;
-    color: #fff;
-    text-align: center;
-
-    p {
-      margin-top: 3vh;
-    }
   }
 
 </style>

@@ -24,10 +24,7 @@
     <div class="characters" v-if="characters.length">
       <CardCharacters v-for="character in characters" v-bind:key="character.id" :character="character" />
     </div>
-    <div class="message" v-if="noResults">
-      <h2> No characters registered! </h2>
-      <p> Try again with another series! </p>
-    </div>
+    <Message main='No characters registered!' paragraph='Try again with another series!' v-if="noResults"/>
     <Loading v-if="loading"/>
   </div>
 </template>
@@ -35,6 +32,7 @@
 <script>
   import CardCharacters from '@/components/CardCharacters.vue'
   import Loading from '@/components/Loading.vue'
+  import Message from '@/components/Message.vue'
   import api, { API_DEFAULT_PARAMS } from '../services/api.js'
 
   export default {
@@ -61,14 +59,11 @@
                     ...API_DEFAULT_PARAMS,
                   }})
             .then(response => {
+              this.characters = response.data.data.results;
+              this.characters.map((character) => character.thumbnail.path += '/standard_large.jpg');
 
-            this.characters = response.data.data.results;
-
-            this.characters.map((character) => character.thumbnail.path += '/standard_large.jpg');
-
-            this.noResults = this.characters.length === 0 ? true: false;
-
-            this.loading = false;
+              this.noResults = this.characters.length === 0 ? true: false;
+              this.loading = false;
           });  
       },
       getSeries() {
@@ -83,17 +78,14 @@
     },
     components: {
       CardCharacters,
-      Loading
+      Loading,
+      Message
     }
   }
 </script>
 
 <style scoped lang="scss">
 
-  /* Color palette */
-  $red: #a52544;
-  $blue: #005658;
-  $dark-blue: #002424;
   $gray: #d9d8d6;
   $yellow: #ee933a;
   $dark-gray: #111111;
@@ -130,12 +122,12 @@
         font-size: 3em;
         z-index: 1;
       }
+      
       p {
         margin-top: 3%;
         font-size: 1.1em;
         z-index: 1;
       }
-
     }
 
     .form {
@@ -194,15 +186,6 @@
     align-items: center;
     margin-top: 1vh;
     margin-bottom: 15vh;
-  }
-
-  /* MESSAGE NO RESULTS */
-  .message {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10%;
-    color: #fff;
   }
  }
 </style>
