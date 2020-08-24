@@ -1,30 +1,30 @@
 <template>
-  <div id="home">
-    <div class="header">
+  <div id='home'>
+    <div class='header'>
       <h1>Hello, </h1>
       <p> Select some serie and find it wonderful characters to choose your favorites! </p>
     </div>
 
-    <div class="form">
-      <form v-on:submit.prevent="submitForm">
-        <div class="search">
-          <select v-model="selectedSerie">
-            <option value="" selected disabled>
+    <div class='form'>
+      <form v-on:submit.prevent='submitForm'>
+        <div class='search'>
+          <select v-model='selectedSerie'>
+            <option value='' selected disabled>
               Pick some serie
             </option>
-            <option v-for="serie in series" v-bind:value="serie.id" v-bind:key="serie.id">
+            <option v-for='serie in series' v-bind:value='serie.id' v-bind:key='serie.id'>
               {{ serie.title }}
             </option>
           </select>
         </div>
-        <button type="submit"> Search </button>
+        <button type='submit'> Search </button>
       </form>
     </div>
 
-    <div class="characters" v-if="characters.length">
-      <CardCharacters v-for="character in characters" v-bind:key="character.id" :character="character" />
+    <div class='characters' v-if='characters.length'>
+      <CardCharacters v-for='character in characters' v-bind:key='character.id' :character='character' />
     </div>
-    <Message main='No characters registered!' paragraph='Try again with another series!' v-if="noResults"/>
+    <Message main='No characters registered!' paragraph='Try again with another series!' v-if='noResults'/>
     <Loading v-if="loading"/>
   </div>
 </template>

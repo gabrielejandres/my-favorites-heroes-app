@@ -1,16 +1,16 @@
 <template>
-  <div id="navbar">
-    <router-link to="/" :class="{active: menuActive === 'home'}">
-      <span class="icon" v-on:click="setActive('home')">
-        <font-awesome-icon icon="home" />
-        <span class="title">Home</span>
+  <div id='navbar'>
+    <router-link to='/' :class="{active: menuActive === 'home'}">
+      <span class='icon' v-on:click="setActive('home')">
+        <font-awesome-icon icon='home' />
+        <span class='title'>Home</span>
       </span>
     </router-link>
 
-    <router-link to="/favorites" :class="{active: menuActive === 'favorites'}">
-      <span class="icon" v-on:click="setActive('favorites')">
-        <font-awesome-icon icon="heart" />
-        <span class="title">Favorites</span>
+    <router-link to='/favorites' :class="{active: menuActive === 'favorites'}">
+      <span class='icon' v-on:click="setActive('favorites')">
+        <font-awesome-icon icon='heart' />
+        <span class='title'>Favorites</span>
       </span>
     </router-link>
   </div>
@@ -19,7 +19,7 @@
 <script>
   export default {
     data: () => ({
-      menuActive: "home"
+      menuActive: window.location.href === 'http://localhost:8080/favorites' ? 'favorites' : 'home'
     }),
     methods: {
       setActive(option) {

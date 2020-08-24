@@ -1,10 +1,10 @@
 <template>
   <fragment>
     <h1> My favorites characters 
-    <font-awesome-icon icon="heart" />
+    <font-awesome-icon icon='heart' />
     </h1>
-    <div class="favorites" v-if="characters.length">
-      <CardCharacters v-for="character in characters" v-bind:key="character.id" :character="character"/>
+    <div class='favorites' v-if='characters.length'>
+      <CardCharacters v-for='character in characters' v-bind:key='character.id' :character='character'/>
     </div>
     <Message main='There are no favorite characters yet!' paragraph='Click on a character in the list on the home page if you want to favorite him.' v-if="noResults"/>
     <Loading v-if="loading"/>

@@ -1,5 +1,5 @@
 <template>
-  <div class="message">
+  <div class='message'>
       <h2> {{ main }} </h2>
       <p> {{ paragraph }} </p>
   </div>
