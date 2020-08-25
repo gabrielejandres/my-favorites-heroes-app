@@ -36,9 +36,6 @@
   import api, { API_DEFAULT_PARAMS } from '../services/api.js'
 
   export default {
-    mounted: function() {
-      this.getSeries();
-    },
     data() {
       return {
         characters: [],
@@ -47,6 +44,9 @@
         noResults: false,
         loading: false
       }
+    },
+    mounted: function() {
+      this.getSeries();
     },
     methods: {
       submitForm() {

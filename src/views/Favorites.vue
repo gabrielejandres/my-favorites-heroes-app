@@ -18,9 +18,17 @@
   import api, { API_DEFAULT_PARAMS } from '../services/api.js'
 
   export default {
+    data() {
+      return {
+        characters: [],
+        loading: false,
+        noResults: false
+      }
+    },
     mounted() {
       this.noResults = JSON.parse(localStorage.getItem('favorites')).length === 0 ? true : false;
 
+      // search for characters from api only if there are favorites
       if (!this.noResults) {
         this.loading = true;
         JSON.parse(localStorage.getItem('favorites')).map(
@@ -42,20 +50,12 @@
         )
       }
     },
-    data() {
-      return {
-        characters: [],
-        loading: false,
-        noResults: false
-      }
-    },
     components: {
       CardCharacters,
       Loading,
       Message
     }
   }
-
 </script>
 
 <style scoped lang="scss">
