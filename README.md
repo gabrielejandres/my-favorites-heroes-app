@@ -1,5 +1,5 @@
 <h3 align="center">
-    <img alt="Capa do projeto" width="1200px" src="./assets/Capa.png">
+    <img alt="Capa do projeto" width="1200px" src="./public/img/Capa.png">
     <br>
 </h3>
 
